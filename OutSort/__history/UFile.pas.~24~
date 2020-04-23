@@ -1,0 +1,131 @@
+unit UFile;
+
+interface
+
+uses
+  SysUtils;
+
+type
+  TFile=class
+  private
+    f: file of integer;
+    FFName: string;
+    Flast: integer;
+    Feosec: boolean;
+    Feofile: boolean;
+  protected
+  public
+    Constructor Create(s: string);
+    destructor Destroy; override;
+    procedure OpenRead;
+    procedure OpenWrite;
+    function IsEmpty: boolean;
+    procedure NextSec;
+    procedure RenameFile(s: string);
+    procedure DeleteTFile;
+    function Copy(F2: TFile): boolean;
+    procedure CopySec(F2: TFile);
+    procedure CloseTFile;
+    property EOSec: boolean
+      read FEOSec;
+    property EOFile: boolean
+      read FEOFile;
+    property Last: integer
+      read FLast;
+    property FName: string
+      read FFName;
+  end;
+
+implementation
+
+{ TFileRead }
+
+procedure TFile.CloseTFile;
+begin
+  closeFile(f);
+end;
+
+function TFile.Copy(F2: TFile): boolean;   //копируем один элемент
+var
+  zn: integer;
+
+begin
+  if FEOsec then result:=false else
+  begin
+    result:=true;
+    write(f2.f,FLast);
+    F2.Flast:=FLast;
+    F2.FEOFile:=false;
+    if Eof(f) then
+    begin
+      FEOsec:=true;
+      FEOFile:=true;
+    end else begin
+      read(f,zn);
+      FEOsec:=Flast>zn;
+      Flast:=zn;
+    end;
+  end;
+end;
+
+procedure TFile.CopySec(F2: TFile);   //копируем последовательность
+begin
+  while Copy(F2) do ;
+end;
+
+constructor TFile.Create(s: string);
+begin
+  FFName:=s;
+  assignfile(f,s);
+end;
+
+procedure TFile.DeleteTFile;
+begin
+  DeleteFile(FName);
+end;
+
+destructor TFile.Destroy;
+begin
+  //closefile(f);
+  inherited;
+end;
+
+function TFile.IsEmpty: boolean;
+begin
+  result:=filesize(f)=0;
+end;
+
+procedure TFile.NextSec;
+begin
+  if not FEofile then
+    FEosec:=false;
+end;
+
+procedure TFile.OpenRead;
+begin
+  reset(f);
+  if not eof(f) then
+  begin
+    read(f,FLast);
+    FEosec:=false;
+    FEofile:=false;
+  end else begin
+    FEosec:=true;
+    FEofile:=true;
+  end;
+end;
+
+procedure TFile.OpenWrite;
+begin
+  rewrite(f);
+  FEOfile:=true;
+end;
+
+
+procedure TFile.RenameFile(s: string);
+begin
+  rename(f,s);
+  FFName:=s;
+end;
+
+end.

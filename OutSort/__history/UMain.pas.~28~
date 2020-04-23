@@ -1,0 +1,96 @@
+unit UMain;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Uwork, ComCtrls, Grids, Spin;
+
+type
+  TForm1 = class(TForm)
+    PageCtrl: TPageControl;
+    SheetGrid: TTabSheet;
+    SheetCheck: TTabSheet;
+    GridMain: TStringGrid;
+    MemoFile: TMemo;
+    Label1: TLabel;
+    SpinKolEl: TSpinEdit;
+    ButRnd: TButton;
+    ButReverse: TButton;
+    Button1: TButton;
+    Button2: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure ButRndClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ButRndClick(Sender: TObject);
+begin
+  MakeRndFile('_test.txt',SpinKolEl.Value);
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  MakeRndFile('test.txt',1000000);
+  //PrintToMemo('test.txt',Memo1);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  i,j: integer;
+
+begin
+  SortFile('test.txt',j);
+  //Memo1.Lines.Add('ГОТОВО!!')
+  //PrintToMemo('test.txt',Memo1);
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+const
+  mas: array[1..6] of integer=(100,500,1000,5000,10000,20000);
+
+var
+  i: integer;
+  zn: integer;
+
+begin
+  Gridmain.RowCount:=7;
+  for i:=1 to 6 do
+  begin
+    GridMain.Cells[0,i]:=inttostr(mas[i]);
+    MakeRndFile('_test.txt',mas[i]);
+    SortFile('_test.txt',zn);
+    GridMain.Cells[1,i]:=inttostr(zn);
+    Application.ProcessMessages;
+
+    MakeReverseFile('_test.txt',mas[i]);
+    SortFile('_test.txt',zn);
+    GridMain.Cells[2,i]:=inttostr(zn);
+    Application.ProcessMessages;
+  end;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  GridMain.ColWidths[0]:=130;
+  GridMain.ColWidths[1]:=110;
+  GridMain.ColWidths[2]:=100;
+  GridMain.Cells[0,0]:='Количество элементов';
+  GridMain.Cells[1,0]:='Случайный файл';
+  GridMain.Cells[2,0]:='Обратный файл';
+end;
+
+end.
