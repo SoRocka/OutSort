@@ -55,7 +55,7 @@ begin
   MakeReverseFile('_test.txt',SpinKolEl.Value);
   PrintToMemo('_test.txt',MemoFile);
   ButSort.Enabled:=true;
-  ButCheck.Enabled:=false;
+  ButCheck.Enabled:=true;  
 end;
 
 procedure TForm1.ButRndClick(Sender: TObject);
@@ -63,7 +63,7 @@ begin
   MakeRndFile('_test.txt',SpinKolEl.Value);
   PrintToMemo('_test.txt',MemoFile);
   ButSort.Enabled:=true;
-  ButCheck.Enabled:=false;
+  ButCheck.Enabled:=true;  
 end;
 
 procedure TForm1.ButSortClick(Sender: TObject);

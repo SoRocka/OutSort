@@ -140,7 +140,7 @@ begin
   rewrite(f);
   for i := 1 to len do
   begin
-    zn := Random(200000) - 100000;
+    zn := Random(200000);
     write(f, zn);
   end;
   closefile(f);

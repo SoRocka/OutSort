@@ -1,6 +1,6 @@
 object Form1: TForm1
   Left = 192
-  Top = 107
+  Top = 111
   Width = 675
   Height = 498
   Caption = #1052#1085#1086#1075#1086#1087#1091#1090#1077#1074#1086#1077' '#1086#1076#1085#1086#1092#1072#1079#1085#1086#1077' '#1089#1073#1072#1083#1072#1085#1089#1080#1088#1086#1074#1072#1085#1085#1086#1077' '#1077#1089#1090#1077#1089#1090#1074#1077#1085#1085#1086#1077' '#1089#1083#1080#1103#1085#1080#1077
@@ -19,7 +19,7 @@ object Form1: TForm1
     Top = 0
     Width = 659
     Height = 459
-    ActivePage = SheetCheck
+    ActivePage = SheetGrid
     Align = alClient
     TabOrder = 0
     object SheetGrid: TTabSheet
@@ -60,7 +60,7 @@ object Form1: TForm1
         Top = 3
         Width = 170
         Height = 471
-        Enabled = False
+        ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 0
       end
@@ -72,7 +72,7 @@ object Form1: TForm1
         MaxValue = 50000
         MinValue = 1
         TabOrder = 1
-        Value = 1
+        Value = 100
       end
       object ButRnd: TButton
         Left = 190
