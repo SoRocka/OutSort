@@ -19,7 +19,7 @@ object Form1: TForm1
     Top = 0
     Width = 659
     Height = 459
-    ActivePage = SheetGrid
+    ActivePage = SheetCheck
     Align = alClient
     TabOrder = 0
     object SheetGrid: TTabSheet

@@ -44,6 +44,7 @@ var
   len: integer;
 
 begin
+  PrintToMemo('_test.txt',MemoFile); 
   if CheckFile('_test.txt',len) then
     ShowMessage('Файл отсортирован.')
   else
